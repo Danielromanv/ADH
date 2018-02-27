@@ -7,17 +7,28 @@ La aplicación requiere de:
 Docker 17.03.1-ce +
 o
 Docker EE 17.03.0-ee-1 +
+docker-compose
 ```
 
+#### Para instalar las imágenes necesarias:
+```
+docker-compose build
+```
+
+#### Para ejecutar los contenedores:
+```
+docker-compose up -d
+```
+La aplicación se ejecutará en el puerto 8080: [localhost:8080](127.0.0.1:8080)
 
 ## Si se utiliza un entorno virtual:
 La aplicación requiere de:
 
 ```
-Python 3.6+
+Python 3.5+
 pip 9.0+
 virtualenv 15.0+
-gunicorn
+nmap
 ```
 
 #### Para instalar el entorno virtual ejecutar:
@@ -34,9 +45,6 @@ pip install -r requirements.txt
 ```
 #### Finalmente para ejecutar la aplicación web:
 ```
-gunicorn -b 0.0.0.0:8080 -w 4 server:app
+python server.py
 ```
-#### Para ejecutar como un servicio:
-```
-
-```
+La aplicación se ejecutará en el puerto 8080: [localhost:8080](127.0.0.1:8080)
