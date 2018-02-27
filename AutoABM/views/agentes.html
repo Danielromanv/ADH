@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>ADH</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <script  src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script type="text/javascript">
+    	function validateForm(s,f,l)
+    	{
+    	    var check=document.forms[s][f].value;
+    	    if (check==null || check=="")
+    	    {
+    		  alert("Por favor ingrese el nombre de un host en el campo");
+    	    }
+          else if(s == 'Form2'){$("#Modal").modal('toggle')}
+          else{document.getElementById(l).style.display = "block"};
+          }
+      </script>
+      <script type="text/javascript">
+      	function validateModal(s,f1,f2,l)
+      	{
+      	    var u=document.forms[s][f1].value;
+            var p=document.forms[s][f2].value;
+      	    if (u == null || u =="")
+      	    {
+      		  alert("Por favor ingrese el usuario");
+      	    }
+            else if (p == null || p =="")
+      	    {
+      		  alert("Por favor ingrese la contraseña");
+            }
+            else{
+              $("#Modal").modal('toggle');
+              document.forms[s]["host_name3"].value = document.forms["Form2"]["host_name2"].value;
+              l.style.display = "block"};
+            }
+        </script>
+        <script type="text/javascript">
+          $(document).ready(function(){
+              $('[data-toggle="tooltip"]').tooltip({
+                  placement : 'top'
+              });
+          });
+        </script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+            background: #31C281;
+        }
+        .navbar-brand{
+          color: white;
+        }
+        .nav-link{
+          color: white;
+        }
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 992px}
+        /* Set gray background color and 100% height */
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 992px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+        body{
+            min-height: 100%;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 auto;
+        }
+        .page-header{
+          background: #31C281;
+          color: red;
+          font-size: 15px;
+          text-align: center;
+        }
+        .lead{
+        margin-bottom: 1cm;
+        margin-top: 1cm;
+        }
+        .loader {
+          position: relative;
+          border: 16px solid #e4e0e0;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          width: 50px;
+          height: 50px;
+          left: 45%;
+          -webkit-animation: spin 2s linear infinite; /* Safari */
+          animation: spin 2s linear infinite;
+          display: none;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+    </style>
+
+</head>
+<nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
+    <a href="/" class="navbar-brand d-flex mr-auto">ADH</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="collapsingNavbar3">
+        <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/logs">Logs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/agentes">Agentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/config">Config</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section id="cover">
+    <div id="cover-caption">
+        <!-- Modal -->
+        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ingrese las credenciales a usar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method= "post" name = "Form3" action= "/agentesinstall" onsubmit="document.getElementById('submit_modal').disabled = true; document.Form.elements.submit_button.disabled = true; document.Form2.elements.submit_button2.disabled = true;" class="justify-content-center">
+                <div class="container">
+                  <div class="form-group">
+                    <input type="text" id = "user" name = "user" class="form-control" placeholder="user"required>
+                    <input type="password" id = "password" name = "password" class="form-control" placeholder="password" required>
+                    <input type="hidden" name = "host_name3" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" id = "submit_modal" onclick="validateModal('Form3','user','password',loader2)" >Instalar</button>
+                <!-- button type="button" id = "submit_button" onclick="validateForm('Form2','host_name2','loader2')" class="btn btn-primary ">Instalar</button -->
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div id="container" class="container">
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1 text-center">
+                    <h1 class="lead">Inserte el nombre de un host para verificar si posee el agente de check_mk</h1>
+                    <div class="info-form">
+                        <form method= "post" name = "Form" action= "/agentes" onsubmit="this.submit_button.disabled = true; document.Form2.elements.submit_button.disabled = true;" class="form-inline justify-content-center" >
+                            <div class="form-group">
+                                <label class="sr-only">Nombre del Host</label>
+                                <input type="text" name = "host_name" class="form-control" required>
+                            </div>
+                            <button type="submit" id = "submit_button" onclick="validateForm('Form','host_name','loader')" class="btn btn-primary ">Verificar</button>
+                        </form>
+                    </div>
+                    <br>
+                    <div class="loader" id="loader"></div>
+                    <h1 class="lead">{{msj}}</h1>
+                    <br>
+                    <h1 class="lead">Inserte el nombre de un host para instalar el agente</h1>
+                    <div class="info-form">
+                        <form method= "post" name = "Form2" onsubmit="this.submit_button.disabled = true; document.Form.elements.submit_button2.disabled = true;" class="form-inline justify-content-center">
+                            <div class="form-group">
+                                <label class="sr-only">Nombre del Host</label>
+                                <input type="text" name = "host_name2" class="form-control" required>
+                            </div>
+                            <button type="button" onclick="validateForm('Form2','host_name2','loader2')" id = "submit_button2" class="btn btn-primary ">Instalar</button>
+                          <i class="fa fa-question-circle fa-2x" data-toggle="tooltip" data-html="true" title="Solo funcional con sistemas debian y rpm"></i>
+                            <!-- button type="button" id = "submit_button" onclick="validateForm('Form2','host_name2','loader2')" class="btn btn-primary ">Instalar</button -->
+                        </form>
+                    </div>
+                    <br>
+                    <div class="loader" id="loader2"></div>
+
+                    %if(type(msj2) == type(str())):
+                    %   if (len(msj2) > 0 ):
+                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Registro de ejecución</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <h1 id="response" name="response" class="lead">{{msj2}}</h1>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                      Mostrar Más
+                    </button>
+                      <!-- Modal -->
+
+                    %elif(type(msj2) == type(list())):
+                    %    for i in msj2:
+                        <h1 id="response" name="response" class="lead">{{i}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</html>

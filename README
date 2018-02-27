@@ -1,0 +1,42 @@
+# ADH
+Agregador de Hosts
+
+## Si se utiliza docker:
+La aplicación requiere de:
+```
+Docker 17.03.1-ce +
+o
+Docker EE 17.03.0-ee-1 +
+```
+
+
+## Si se utiliza un entorno virtual:
+La aplicación requiere de:
+
+```
+Python 3.6+
+pip 9.0+
+virtualenv 15.0+
+gunicorn
+```
+
+#### Para instalar el entorno virtual ejecutar:
+```
+virtualenv -p python<version> env
+```
+#### Para activar el entorno virtual:
+```
+source env/bin/activate
+```
+#### Para instalar dependencias:
+```
+pip install -r requirements.txt
+```
+#### Finalmente para ejecutar la aplicación web:
+```
+gunicorn -b 0.0.0.0:8080 -w 4 server:app
+```
+#### Para ejecutar como un servicio:
+```
+
+```
