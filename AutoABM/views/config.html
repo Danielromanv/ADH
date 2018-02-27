@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>ADH</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <script  src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    	function validateForm()
+    	{
+    	    var check=document.forms["Form"]["host_name"].value;
+    	    if (check==null || check=="")
+    	    {
+    		  alert("Por favor ingrese el nombre de un host en el campo");
+    	    }
+          else {
+            document.getElementById("loader").style.display = "block";
+          }
+    	}
+    </script>
+    <script type="text/javascript">
+     window.onload = function form_show()
+     {
+         var x = document.getElementById("form2");
+         var y = document.getElementById("LS");
+         if (y.innerText != "" && y.innerText != "Se ha guardado la configuración")
+            x.style.display = "block"
+     }
+    </script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+            background: #31C281;
+        }
+        .navbar-brand{
+          color: white;
+        }
+        .nav-link{
+          color: white;
+        }
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 992px}
+        /* Set gray background color and 100% height */
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 992px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+        body{
+            min-height: 100%;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 auto;
+        }
+        .page-header{
+          background: #31C281;
+          color: red;
+          font-size: 15px;
+          text-align: center;
+        }
+        .lead{
+        margin-bottom: 1cm;
+        margin-top: 1cm;
+        }
+        .loader {
+          position: relative;
+          border: 16px solid #e4e0e0;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          width: 50px;
+          height: 50px;
+          left: 45%;
+          -webkit-animation: spin 2s linear infinite; /* Safari */
+          animation: spin 2s linear infinite;
+          display: none;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
+    <a href="/" class="navbar-brand d-flex mr-auto">ADH</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="collapsingNavbar3">
+        <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/logs">Logs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/agentes">Agentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/config">Config</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section onload=form_show() id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row">
+                <div class="col-sm-10 offset-sm-1 text-center">
+                    <h1 class="lead">Seleccione sección a configurar</h1>
+                    <div class="info-form">
+                        <form method= "post" name = "Form" action= "/config" onsubmit="this.submit_button.disabled = true;" class="form-inline justify-content-center mb-5">
+                            <select name="configuracion" class="custom-select" style="width:60%;">
+                              %for item in sections:
+                              <option value={{item}}>{{item}}</option>
+                              %end
+                            </select>
+                            <button type="submit" id = "submit_button"  class="btn btn-primary ">Cargar</button>
+                        </form>
+                    </div>
+                    <h1 id = "LS" name = "LS" class="lead">{{section}}</h1>
+                    <form method= "post" name = "Form2" id ="form2" action= "/saveconfig" onsubmit="this.submit_button.disabled = true;" class="form-inline justify-content-center" style = " display:none;">
+                    <input type="text" class="form-control" style="display:none;" id=seccion name=seccion value="{{seccion}}">
+                      %for i in selected:
+                      %a="" if selected[i]=="" else selected[i]
+                      <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-sm">{{i}}</span>
+                        </div>
+                        <input type="text" class="form-control" id={{i}} name={{i}} value="{{!a}}"  aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        %end
+                        <button type="submit" id = "submit_button"  class="btn btn-primary ">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>
