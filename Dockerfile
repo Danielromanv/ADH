@@ -5,7 +5,7 @@ RUN apt-get update \
   && cd /usr/local/bin \
   && ln -s /usr/bin/python3 python3 \
   && pip3 install --upgrade pip \
-  && apt-get install nmap
+  && apt-get install nmap -y
 
 WORKDIR /AutoABM
 COPY /AutoABM/ /AutoABM/
