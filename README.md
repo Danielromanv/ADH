@@ -47,4 +47,4 @@ pip install -r requirements.txt
 ```
 python server.py
 ```
-La aplicación se ejecutará en el puerto 8080: [localhost:8080](127.0.0.1:8080)
+La aplicación se ejecutará en el puerto 8080: [http://localhost:8080](http://localhost:8080)
