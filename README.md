@@ -19,7 +19,7 @@ docker-compose build
 ```
 docker-compose up -d
 ```
-La aplicación se ejecutará en el puerto 8080: [localhost:8080](127.0.0.1:8080)
+La aplicación se ejecutará en el puerto 8080: [http://localhost:8080](http://localhost:8080)
 
 ## Si se utiliza un entorno virtual:
 La aplicación requiere de:
