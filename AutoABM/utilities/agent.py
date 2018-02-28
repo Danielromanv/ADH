@@ -34,7 +34,6 @@ def distro(host,user,passw):
     s.prompt()
     print("auxilio2")
     a = s.before.decode("utf-8")
-    print(a)
     if("not found" in a.lower()):
         s.logout()
         return 1
@@ -43,7 +42,6 @@ def distro(host,user,passw):
         return 0
 
 def rpm_install(host,user,passw):
-    blog = list()
     log = list()
     try:
         if(len(teln(host)) != 0):
@@ -57,15 +55,11 @@ def rpm_install(host,user,passw):
         s.sendline('whoami')
         log.append("command: whoami")
         s.prompt(timeout = 5)
-        print(1)
-        blog.append(s.before)
-        print(2)
         log.append(s.before.decode("utf-8"))
         if (log[-1] != "root"):
             s.sendline('sudo su')
             log.append("command: sudo su")
             s.prompt(timeout = 3)
-            blog.append(s.before)
             log.append(s.before.decode("utf-8"))
             if ("passw" in log[-1].lower()):
                 s.sendline(passw)
@@ -77,40 +71,29 @@ def rpm_install(host,user,passw):
         s.sendline('yum install xinetd -y')
         log.append("command: yum install xinetd -y")
         s.prompt(timeout = 10)
-        blog.append(s.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('rpm -i '+rpm)
         log.append("command: rpm -i "+rpm)
         s.prompt(timeout = 10)
-        blog.append(s.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('service xinetd restart')
         log.append("command: service xinetd restart")
         s.prompt(timeout = 3)
-        blog.append(s.before)
         log.append(s.before.decode("utf-8"))
         s.sendline("if [ ! -f /usr/lib/check_mk/plugins/mk_logwatch ]; then wget "+lplugin+" -P /usr/lib/check_mk/plugins; fi")
         log.append("command: wget "+lplugin+" -P /usr/lib/check_mk/plugins")
         s.prompt(timeout = 5)
-        blog.append(s.before)
         log.append(s.before.decode("utf-8"))
         s.sendline("if [ ! -f /etc/check_mk/logwatch.cfg ]; then wget "+lcfg+" -P /etc/check_mk/; fi")
         log.append("command: wget "+lcfg+" -P /etc/check_mk/")
         s.prompt(timeout = 5)
-        blog.append(s.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('netstat -tlpn | grep xinetd')
         s.prompt()
-        blog.append(s.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('exit')
         s.prompt(timeout = 3)
         print("exit")
-        a = ""
-        for i in log:
-            a = a+i+"\n"
-        s.logout()
-        print(a)
         return(log)
     except Exception as e:
         print(e)
@@ -122,7 +105,6 @@ def rpm_install(host,user,passw):
 #/etc/check_mk/   logwatch conf
 
 def deb_install(host,user,passw):
-    blog = list()
     log = list()
     try:
         if(len(teln(host)) != 0):
@@ -136,14 +118,12 @@ def deb_install(host,user,passw):
         s.sendline('whoami')
         log.append("command: whoami")
         s.prompt(timeout = 5)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.prompt()
         if (s.before.decode("utf-8") != "root"):
             s.sendline('sudo su')
             log.append("command: sudo su")
             s.prompt(timeout = 3)
-            blog.append(a.before)
             log.append(s.before.decode("utf-8"))
             if ("passw" in s.before.decode("utf-8").lower()):
                 s.sendline(passw)
@@ -152,51 +132,43 @@ def deb_install(host,user,passw):
                     print("credenciales con insuficientes privilegios")
                     s.logout()
                     return("error, credenciales con insuficientes privilegios")
-
         s.sendline('apt install xinetd ')
         log.append('command: apt install xinetd ')
         s.prompt(timeout = 10)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('wget --output-document check_mk_agent.deb '+deb)
         log.append('command: wget --output-document check_mk_agent.deb '+deb)
         s.prompt(timeout = 10)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('dpkg -i check_mk_agent.deb')
         log.append('command: dpkg -i check_mk_agent.deb')
         s.prompt(timeout = 3)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('rm check_mk_agent.deb')
         log.append('command: rm check_mk_agent.deb')
         s.prompt(timeout = 5)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('service xinetd restart')
         log.append('command: service xinetd restart')
         s.prompt(timeout = 5)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.sendline("if [ ! -f /usr/lib/check_mk/plugin/mk_logwatch ]; then wget "+lplugin+" -P /usr/lib/check_mk/plugins; fi")
         log.append("command: wget "+lplugin+" -P /usr/lib/check_mk/plugins")
         s.prompt(timeout = 5)
-        blog.append(s.before)
         log.append(s.before.decode("utf-8"))
         s.sendline("if [ ! -f /etc/check_mk/logwatch.cfg ]; then wget "+lcfg+" -P /etc/check_mk/; fi")
         log.append("command: wget "+lcfg+" -P /etc/check_mk/")
         s.prompt(timeout = 5)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('netstat -tlpn | grep xinetd')
         s.prompt(timeout = 3)
-        blog.append(a.before)
         log.append(s.before.decode("utf-8"))
         s.sendline('exit')
         s.prompt(timeout = 3)
         s.logout()
         return(log)
-    except :
+    except Exception as e:
+        print(e)
         print("pxssh failed on login.")
         return("falló el login")
 

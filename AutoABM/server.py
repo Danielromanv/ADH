@@ -119,10 +119,8 @@ def do_agentesinstall():
         if(b == 1):
             print(1)
             a = agent.rpm_install(host,user,password)
-            print(a)
             return template('agentes', msj = "",msj2= a)
         elif (b == -1):
-            print(2)
             return template('agentes', msj = "",msj2= "Error al conectarse, revise las credenciales utilizadas")
         else:
             print(3)
@@ -130,7 +128,6 @@ def do_agentesinstall():
             return template('agentes', msj = "",msj2= a)
     return template('agentes', msj = "",msj2="No se puede instalar")
 
-#Se chequea la ejecucion del servidor con un puerto especifico
 if __name__ == '__main__':
     try:
         app.run(host='0.0.0.0', server= "paste", port = 80)
