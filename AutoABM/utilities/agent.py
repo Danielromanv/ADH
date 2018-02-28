@@ -28,11 +28,9 @@ def distro(host,user,passw):
     try:
         s.login(hostname, username, password)
     except:
-        print("auxilio")
         return(-1)
     s.sendline('dpkg')
     s.prompt()
-    print("auxilio2")
     a = s.before.decode("utf-8")
     if("not found" in a.lower()):
         s.logout()
