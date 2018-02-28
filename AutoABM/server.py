@@ -19,7 +19,6 @@ def dberror():
 
 @app.route('/')
 def default():
-    print("la concha de la mona")
     if(conf.check() == 0):
         return template("configerror")
     if(db.DB_check(db.dbhost) == 0):
